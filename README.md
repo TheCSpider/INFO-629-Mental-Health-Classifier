@@ -6,9 +6,9 @@ A project for Drexel class INFO-629 in the Winter of 2026.
 **Project Type:** Practice Focused to build an application
 
 ## Group Members:
-* Alvin Boakai (asb424@drexel.edu)
-* Maya Gallardo (Mg3957@drexel.edu)
-* Shad Scarboro (srs359@drexel.edu)
+* Alvin Boakai 
+* Maya Gallardo
+* Shad Scarboro
 
 
 ## Project Description:
