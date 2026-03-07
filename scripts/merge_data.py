@@ -32,6 +32,14 @@ print("----------------------------------")
 # Combine the two datasets and save to a new CSV file
 # ----------------------------------------------------
 combined = pd.concat([data1, data2])
+
+print("Combined shape:", combined.shape)
+combined.drop_duplicates()
+print("Combined shape after dropping duplicates:", combined.shape)
+
+# Make everything lower case and strip whitespace for the statement column
+combined["statement"] = combined["statement"].astype(str).str.lower().str.strip()
+
 combined.to_csv("../processed/combined.csv", index=False)
 
 print("Done merging!")
