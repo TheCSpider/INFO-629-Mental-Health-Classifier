@@ -80,3 +80,9 @@ def classify_neural_network(text: str) -> ClassifierLabels:
     if scores[best_label] == 0:
         return ClassifierLabels.NORMAL
     return ClassifierLabels.DEPRESSION
+    
+classify_mental_health(MentalHealthClassifiers.NAIVE_BAYES,
+                       "I feel hopeless and tired every day.")
+
+classify_mental_health(MentalHealthClassifiers.NEURAL_NETWORK,
+                       "I can't stop panicking and overthinking.")
