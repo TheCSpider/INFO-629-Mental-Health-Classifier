@@ -80,8 +80,7 @@ def classify_neural_network(text: str) -> ClassifierLabels:
 
     # Map prediction to ClassifierLabels enum
     return ClassifierLabels(prediction[0])
-
-  
+      
 classify_mental_health(MentalHealthClassifiers.NAIVE_BAYES,
                        "I feel hopeless and tired every day.")
 
