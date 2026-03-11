@@ -63,38 +63,25 @@ def classify_naive_bayes(text: str) -> ClassifierLabels:
 def classify_neural_network(text: str) -> ClassifierLabels:
     text = text.lower()
 
-    # Weighted "neural network–style" scoring
-    weights = {
-        ClassifierLabels.ANXIETY: {
-            "panic": 2, "anxious": 3, "worry": 1, "overwhelmed": 2
-        },
-        ClassifierLabels.DEPRESSION: {
-            "sad": 2, "empty": 3, "tired": 1, "hopeless": 3, "lost": 2
-        },
-        ClassifierLabels.SUICIDAL: {
-            "suicide": 5, "kill myself": 5, "end it": 4, "die": 3
-        },
-        ClassifierLabels.NORMAL: {
-            "happy": 2, "good": 1, "fine": 1, "okay": 1
-        }
-    }
+    # Load the pre-trained neural network model
+    with open('./neural_network/neural_network_model.pkl', 'rb') as file:
+        nn_model = pickle.load(file)
 
-    scores = {label: 0 for label in weights}
+    # Load the corresponding CountVectorizer
+    with open('./neural_network/count_vectorizer.pkl', 'rb') as file:
+        vectorizer: CountVectorizer = pickle.load(file)
 
-    # Compute weighted scores
-    for label, word_dict in weights.items():
-        for word, weight in word_dict.items():
-            if word in text:
-                scores[label] += weight
+    # Transform the input text
+    query = [text]
+    query_vector = vectorizer.transform(query)
 
-    # Pick the highest‑scoring label
-    best_label = max(scores, key=scores.get)
+    # Get prediction from the neural network model
+    prediction = nn_model.predict(query_vector)
 
-    # If all scores are zero, assume NORMAL
-    if scores[best_label] == 0:
-        return ClassifierLabels.NORMAL
-    return ClassifierLabels.DEPRESSION
-    
+    # Map prediction to ClassifierLabels enum
+    return ClassifierLabels(prediction[0])
+
+  
 classify_mental_health(MentalHealthClassifiers.NAIVE_BAYES,
                        "I feel hopeless and tired every day.")
 
