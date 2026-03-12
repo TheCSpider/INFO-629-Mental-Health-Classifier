@@ -3,6 +3,7 @@
 # ----------------------------
 import enum
 import pickle
+import tensorflow as tf
 
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -64,25 +65,28 @@ def classify_neural_network(text: str) -> ClassifierLabels:
     text = text.lower()
 
     # Load the pre-trained neural network model
-    with open('./neural_network/neural_network_model.pkl', 'rb') as file:
-        nn_model = pickle.load(file)
+    nn_model = tf.keras.models.load_model('./neural_network/neural_network.model.h5')
 
     # Load the corresponding CountVectorizer
-    with open('./neural_network/count_vectorizer.pkl', 'rb') as file:
-        vectorizer: CountVectorizer = pickle.load(file)
+    with open('./neural_network/vectorizer.pkl', 'rb') as file:
+        vectorizer = pickle.load(file)
+
+    with open('./neural_network/label_encoder.pkl', 'rb') as file:
+        encoder = pickle.load(file)
 
     # Transform the input text
     query = [text]
-    query_vector = vectorizer.transform(query)
+    query_vector = vectorizer.transform(query).toarray()
 
     # Get prediction from the neural network model
     prediction = nn_model.predict(query_vector)
 
     # Map prediction to ClassifierLabels enum
-    return ClassifierLabels(prediction[0])
-      
-classify_mental_health(MentalHealthClassifiers.NAIVE_BAYES,
-                       "I feel hopeless and tired every day.")
+    predicted_label = encoder.inverse_transform([prediction.argmax()])[0]
+    return ClassifierLabels(predicted_label)
 
-classify_mental_health(MentalHealthClassifiers.NEURAL_NETWORK,
-                       "I can't stop panicking and overthinking.")
+print(classify_mental_health(MentalHealthClassifiers.NAIVE_BAYES,
+                       "I feel hopeless and tired every day."))
+
+print(classify_mental_health(MentalHealthClassifiers.NEURAL_NETWORK,
+                       "I can't stop panicking and overthinking."))
