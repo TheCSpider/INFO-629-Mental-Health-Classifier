@@ -1,0 +1,11 @@
+name: info629project
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pandas
+  - scikit-learn
+  - pip
+  - pip:
+      - streamlit
+  
