@@ -5,6 +5,9 @@ dependencies:
   - python=3.12
   - pandas
   - scikit-learn
+  - matplotlib
+  - IPython
+  - nomkl
   - pip
   - pip:
       - streamlit
