@@ -27,27 +27,8 @@ def classify_mental_health(classifier: MentalHealthClassifiers, text: str) -> Cl
         return ClassifierLabels.ERROR
     
 def classify_naive_bayes(text: str) -> ClassifierLabels:
-    # text = text.lower()
-
-    # anxiety_words = ["worried", "anxious", "panic", "nervous", "overthinking"]
-    # depression_words = ["sad", "empty", "tired", "hopeless", "worthless"]
-    # suicidal_words = ["suicide", "kill myself", "end it", "no reason to live"]
-    # normal_words = ["happy", "good", "fine", "okay", "normal"]
-
-    # scores = {
-    #     ClassifierLabels.ANXIETY: sum(w in text for w in anxiety_words),
-    #     ClassifierLabels.DEPRESSION: sum(w in text for w in depression_words),
-    #     ClassifierLabels.SUICIDAL: sum(w in text for w in suicidal_words),
-    #     ClassifierLabels.NORMAL: sum(w in text for w in normal_words)
-    # }
-
-    # # Pick the label with the highest score
-    # best_label = max(scores, key=scores.get)
-
-    # # If no keywords matched, default to NORMAL
-    # if scores[best_label] == 0:
-    #     return ClassifierLabels.NORMAL
-
+    text = text.lower()
+    
     # Load the pre‑trained Naive Bayes model
     with open('./naive_bayes/naive_bayes_model.pkl', 'rb') as file:
         nb_model = pickle.load(file)
