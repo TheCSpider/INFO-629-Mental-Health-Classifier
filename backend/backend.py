@@ -84,9 +84,3 @@ def classify_neural_network(text: str) -> ClassifierLabels:
     # Map prediction to ClassifierLabels enum
     predicted_label = encoder.inverse_transform([prediction.argmax()])[0]
     return ClassifierLabels(predicted_label)
-
-print(classify_mental_health(MentalHealthClassifiers.NAIVE_BAYES,
-                       "I feel hopeless and tired every day."))
-
-print(classify_mental_health(MentalHealthClassifiers.NEURAL_NETWORK,
-                       "I can't stop panicking and overthinking."))
