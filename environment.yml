@@ -5,8 +5,8 @@ dependencies:
   - python=3.12
   - pandas
   - scikit-learn
-  - tensorflow
   - pip
   - pip:
       - streamlit
+      - tensorflow
   
